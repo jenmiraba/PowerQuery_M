@@ -1,7 +1,9 @@
 
 # M - Remove last N rows if condition is met
 
-This repository contains an M Language Power Query script that can be used to remove the last rows of a table if a specified condition is met. The condition is based on the presence of a specific word in a chosen column of the table.
+This repository contains an M Language Power Query script that can be used to remove the last rows of a table if a specified condition is met. The condition could be based for example on the presence of a specific word in a chosen column of the table, lenght of text or specific digits.
+
+![Alternate image text](https://i.imgur.com/9tnxPKo.png)
 
 ## Purpose
 The purpose of this script is to easily remove rows from the end of a table if they do not meet a specific criteria. This can be useful when working with large datasets where the last few rows do not contain relevant data, we don't know exactly how many rows have to be removed or if that number could change in the future.
@@ -29,7 +31,7 @@ To use this script, follow these steps:
 ```let
     Source = GoogleSheets.Contents(MyWorksheet),
 
-    // Get the row position where a condition of interest is met and all the rows after, included that one will be removed
+    // Get the row position where a condition of interest is met that will be removed along with all the rows after
     // Uncomment according to the condition needed
 
     // Example 1: Looking for a specific word or string like "ABC"
@@ -41,10 +43,10 @@ To use this script, follow these steps:
     // Example 3: Certain text length such as 3
     // varPosition = List.PositionOf(List.Transform(Source[columnToSearch], each Text.Length(_)), 3),
 
-    // Example 4: Check for more than one length
+    // Example 4: Check for more than one length (4 and 7)
     // varPosition = List.PositionOfAny(List.Transform(Source[columnToSearch], each Text.Length(_)), {4, 7}),
 
-    // Example 5: A specific number 
+    // Example 5: A specific number like 4
     // varPosition = List.PositionOf(Source[columnToSearch], 4),
 
     // Get total rows in the table //
