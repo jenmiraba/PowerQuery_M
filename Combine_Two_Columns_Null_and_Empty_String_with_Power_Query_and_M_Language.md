@@ -1,0 +1,68 @@
+
+
+# M - Combine Two Columns Where Records are scattered between them
+
+## Problem Description
+You have two columns in your data table that contain the same information, but some records appear in one column, and other in the second column. The column that doesn't have records has either null values or have emprty strings. You need to combine these two columns into a single column that contains the complete information.
+
+![Alternate image text](https://i.imgur.com/5UB8Egv.png)
+
+
+## Solution when we have null values
+To combine the two columns, we'll use Power Query Editor and the M language. We'll use the "if-then-else" conditional statement to check if the value in the first column is null or not. If the value is null, then the value from the second column should be used; otherwise, the value from the first column should be used.
+
+### M Code - Null
+
+```
+let
+    
+    Source = <your data source>,
+    #"Added Custom" = Table.AddColumn(Source, "Combined", each if [Column1] = null then [Column2] else [Column1])
+
+in  
+    #"Added Custom"
+```
+
+
+## Solution when we have empty string
+I'll present with two options to combine the two columns to handle empty strings instead of null values. Te one to use would depend on the data in the table.
+
+### M Code - 1. Text.Trim
+
+```
+let
+    
+    Source = <your data source>,
+    #"Added Custom" = Table.AddColumn(Source, "Combined", each if Text.Trim([Column1]) = "" then [Column2] else [Column1])
+
+in  
+    #"Added Custom"
+```
+
+### M Code - 2. Text.Length
+
+```
+let
+    
+    Source = <your data source>,
+    #"Added Custom" = Table.AddColumn(Source, "Combined", each if Text.Length([Column1]) > 0 then [Column2] else [Column1])
+
+in  
+    #"Added Custom"
+```
+
+## Authors
+
+- [@jenmiraba](https://github.com/jenmiraba)
+
+
+## Tech
+
+**Power Query** 
+Data transformation and cleansing tool built into Microsoft Excel and Power BI. It provides a graphical interface for creating and manipulating data transformations. 
+
+
+**M Language**
+Functional programming language used by Power Query to create custom data transformations. It is a powerful tool that allows for complex data manipulation, filtering, and aggregation.
+
+
